@@ -1,6 +1,6 @@
 package com.nbr.trp.user.repository;
 
-import com.nbr.trp.user.entity.ApproveTRPView;
+import com.nbr.trp.user.entity.ApproveITPView;
 import com.nbr.trp.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -42,10 +42,10 @@ public interface UserRepository extends JpaRepository<User, String> {
             nativeQuery = true)
     Integer findNoOfTRP();
 
-    @Query(value = "select uuid, username, re_name, added_date, status, agent_id from users join representative on " +
-            "users.username=representative.tin_no where status='0' order by added_date desc",
+    @Query(value = "select userid, itp_name, tin_no, lic_no, type from users join itp on " +
+            "users.username=itp.tin_no where status='0' order by added_date desc",
             nativeQuery = true)
-    List<ApproveTRPView> getAllTRPForApproval();
+    List<ApproveITPView> getAllTRPForApproval();
 
 
     @Query(value = "select * from users join users_roles on users.uuid=users_roles.user_id where role_id!='1' and\n" +

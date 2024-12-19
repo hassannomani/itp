@@ -1,23 +1,20 @@
 package com.nbr.trp.user.service;
 
-import com.nbr.trp.user.entity.ApproveTRPView;
+import com.nbr.trp.user.entity.ApproveITPView;
 import com.nbr.trp.user.entity.Role;
 import com.nbr.trp.user.entity.User;
 import com.nbr.trp.user.repository.RoleRepository;
 import com.nbr.trp.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static com.nbr.trp.user.entity.ERole.ROLE_ADMIN;
 import static com.nbr.trp.user.entity.ERole.ROLE_ITP;
 
 @Service
@@ -63,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ApproveTRPView> getAllPendingUsers() {
+    public List<ApproveITPView> getAllPendingUsers() {
         return userRepository.getAllTRPForApproval();
     }
 

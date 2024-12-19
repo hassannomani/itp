@@ -2,7 +2,7 @@ package com.nbr.trp.user.controller;
 
 import com.nbr.trp.common.service.CommonService;
 import com.nbr.trp.log.LoggerController;
-import com.nbr.trp.user.entity.ApproveTRPView;
+import com.nbr.trp.user.entity.ApproveITPView;
 import com.nbr.trp.user.entity.Role;
 import com.nbr.trp.user.entity.User;
 import com.nbr.trp.user.repository.RoleRepository;
@@ -11,7 +11,6 @@ import com.nbr.trp.user.service.UserDetailsImpl;
 import com.nbr.trp.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -20,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 4800)
@@ -40,24 +38,7 @@ public class UserController {
 
     @Autowired
     LoggerController loggerController;
-    /*
-    @GetMapping("/all")
-    public MessageResponse allAccess() {
-        return new MessageResponse("Public ");
-    }
 
-    @GetMapping("/employee")
-    @PreAuthorize("hasRole('EMPLOYEE') ")
-    public MessageResponse employeeAccess() {
-
-        return new MessageResponse("Employee zone");
-    }
-
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public MessageResponse adminAccess() {
-        return new MessageResponse("Admin zone");
-    }*/
 
     //@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/roles")
@@ -139,11 +120,11 @@ public class UserController {
 
     //@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/pending-all")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','NBR')")
     public ResponseEntity<?> getAllPendingUsers(HttpServletRequest request) {
         String ip = commonService.getIPAddress(request);
         try{
-            List<ApproveTRPView> users = userService.getAllPendingUsers();
+            List<ApproveITPView> users = userService.getAllPendingUsers();
             loggerController.ListGeneration("","Pending Users","Admin",ip);
             return ResponseEntity.ok(users);
         }catch(Exception e){
@@ -169,7 +150,7 @@ public class UserController {
 
     //@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/tinapprove/{username}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','NBR')")
     public ResponseEntity<?> approveUserByTin(HttpServletRequest request,@PathVariable String username) {
         String ip = commonService.getIPAddress(request);
 
@@ -272,8 +253,7 @@ public class UserController {
             return ResponseEntity.ok(bool);
         }catch(Exception e){
             loggerController.ErrorHandler(e);
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));cd i
     }
 
     private UserDetailsImpl getDetails(){

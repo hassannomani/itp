@@ -1,9 +1,8 @@
 package com.nbr.trp.user.service;
 
-import com.nbr.trp.user.entity.ApproveTRPView;
+import com.nbr.trp.user.entity.ApproveITPView;
 import com.nbr.trp.user.entity.Role;
 import com.nbr.trp.user.entity.User;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public interface UserService {
 
     public List<Role> getRoles();
 
-    public List<ApproveTRPView> getAllPendingUsers();
+    public List<ApproveITPView> getAllPendingUsers();
 
     public User approveRepuser(String uuid);
 

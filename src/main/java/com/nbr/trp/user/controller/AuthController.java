@@ -90,7 +90,7 @@ public class AuthController {
             }
         }
 
-        if(userDetails.getStatus().equals("1")||userDetails.getStatus().equals("0")){
+        if(userDetails.getStatus().equals("1")){
             loggerController.Login(userDetails.getUuid(),ip);
             //logger.debug(userDetails.getUuid()+ " User is logging in");
             List<String> roles = userDetails.getAuthorities()
@@ -104,60 +104,60 @@ public class AuthController {
                             roles
                     )
             );
-//        }else if(userDetails.getStatus().equals("0")){
-//
-//            loggerController.LoginFailedUnApproved(userDetails.getUuid(),ip);
-//            return ResponseEntity.status(403).body("Approval Required");
-//
-//        }else if(userDetails.getStatus().equals("-3")){
-//
-//            loggerController.LoginFailedDeny(userDetails.getUuid(),ip);
-//            Action action = actionService.getActionByTypeAndTin("DENY",userDetails.getUsername());
-//            return ResponseEntity.status(403).body(action);
-//
-//        }
-//        else if(userDetails.getStatus().equals("-2")){
-//
-//            Action action = actionService.getActionByTypeAndTin("BLOCK",userDetails.getUsername());
-//            loggerController.LoginFailedBlocked(userDetails.getUuid(),ip);
-//            return ResponseEntity.status(403).body(action);
-//
-//        }
-//        else if(userDetails.getStatus().equals("-1")){
-//
-//            Action action = actionService.getActionByTypeAndTin("SUSPEND",userDetails.getUsername());
-//            long timeStart = action.getActionFrom().getTime();
-//            long timeEnd = action.getActionTo().getTime();
-//            long now = new Date().getTime();
-//            if(now>=timeStart&&now<timeEnd){
-//                //logger.info(userDetails.getUuid()+ " Suspended user trying to access");
-//                loggerController.LoginFailedSuspended(userDetails.getUuid(),ip);
-//                return ResponseEntity.status(403).body(action);
-//            }
-//            else if(now<timeStart){
-//                //logger.info(userDetails.getUuid()+ " User is loggin in");
-//                loggerController.Login(userDetails.getUuid(),ip);
-//                List<String> roles = userDetails.getAuthorities()
-//                        .stream().map(item -> item.getAuthority())
-//                        .collect(Collectors.toList());
-//
-//                return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUuid(), userDetails.getUsername(),
-//                        userDetails.getEmail(), roles)
-//                );
-//            }
-//            else{
-//                User user = userRepository.getByTin(userDetails.getUsername());
-//                user.setStatus("1");
-//                User u = userRepository.save(user);
-//                loggerController.Login(userDetails.getUuid(),ip);
-//                List<String> roles = userDetails.getAuthorities()
-//                        .stream().map(item -> item.getAuthority())
-//                        .collect(Collectors.toList());
-//
-//                return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUuid(), userDetails.getUsername(),
-//                        userDetails.getEmail(), roles)
-//                );
-//            }
+        }else if(userDetails.getStatus().equals("0")){
+
+            loggerController.LoginFailedUnApproved(userDetails.getUuid(),ip);
+            return ResponseEntity.status(403).body("Approval Required");
+
+        }else if(userDetails.getStatus().equals("-3")){
+
+            loggerController.LoginFailedDeny(userDetails.getUuid(),ip);
+            Action action = actionService.getActionByTypeAndTin("DENY",userDetails.getUsername());
+            return ResponseEntity.status(403).body(action);
+
+        }
+        else if(userDetails.getStatus().equals("-2")){
+
+            Action action = actionService.getActionByTypeAndTin("BLOCK",userDetails.getUsername());
+            loggerController.LoginFailedBlocked(userDetails.getUuid(),ip);
+            return ResponseEntity.status(403).body(action);
+
+        }
+        else if(userDetails.getStatus().equals("-1")){
+
+            Action action = actionService.getActionByTypeAndTin("SUSPEND",userDetails.getUsername());
+            long timeStart = action.getActionFrom().getTime();
+            long timeEnd = action.getActionTo().getTime();
+            long now = new Date().getTime();
+            if(now>=timeStart&&now<timeEnd){
+                //logger.info(userDetails.getUuid()+ " Suspended user trying to access");
+                loggerController.LoginFailedSuspended(userDetails.getUuid(),ip);
+                return ResponseEntity.status(403).body(action);
+            }
+            else if(now<timeStart){
+                //logger.info(userDetails.getUuid()+ " User is loggin in");
+                loggerController.Login(userDetails.getUuid(),ip);
+                List<String> roles = userDetails.getAuthorities()
+                        .stream().map(item -> item.getAuthority())
+                        .collect(Collectors.toList());
+
+                return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUuid(), userDetails.getUsername(),
+                        userDetails.getEmail(), roles)
+                );
+            }
+            else{
+                User user = userRepository.getByTin(userDetails.getUsername());
+                user.setStatus("1");
+                User u = userRepository.save(user);
+                loggerController.Login(userDetails.getUuid(),ip);
+                List<String> roles = userDetails.getAuthorities()
+                        .stream().map(item -> item.getAuthority())
+                        .collect(Collectors.toList());
+
+                return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUuid(), userDetails.getUsername(),
+                        userDetails.getEmail(), roles)
+                );
+            }
         }else{
             System.out.println("here");
             loggerController.LoginError(userDetails.getUuid(),ip);
