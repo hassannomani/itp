@@ -253,7 +253,8 @@ public class UserController {
             return ResponseEntity.ok(bool);
         }catch(Exception e){
             loggerController.ErrorHandler(e);
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));cd i
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
     }
 
     private UserDetailsImpl getDetails(){
