@@ -8,22 +8,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public interface RepresentativeService {
+public interface ItpService {
     public ITP saveRepresentative(ITP ITP);
 
-    public List<ITP> getAllRepresentatives();
+    public List<ITP> getAllITPs();
 
     public Optional<ITP> getUserByTin(String tin);
 
     public Optional<ITP> getUserById(String uuid);
-
-    public List<ITP> getAllRepresentativesOfAnAgent(String id);
-
-    public ITP assignAgent(String tin, String agent);
-
-    public RepresentativeAgentView getAgentInfo(String tin);
-
-    public ITP getSingleRepresentativesOfAnAgent(String agent, String trp);
 
 
 }

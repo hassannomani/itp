@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 @EnableJpaRepositories
-public interface RepresentativeRepository extends JpaRepository<ITP, String> {
+public interface ItpRepository extends JpaRepository<ITP, String> {
     Optional<ITP> findByTinNo(String tin);
 
     ITP save(ITP ITP);

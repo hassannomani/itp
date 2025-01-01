@@ -17,10 +17,7 @@ public interface LedgerService {
 
     public List<LedgerAdminView> getAll();
 
-    public List<Ledger> getLadgersOfAnAgent(String id);
-    public List<Object[]> getAgentCommissionView(String tin);
-
-    public List<Ledger> getLedgersOfARepresentative(String id);
+    public List<Ledger> getLedgersOfAnITP(String id);
 
     public List<Ledger> getLedgersOfAdmin();
 
@@ -35,15 +32,15 @@ public interface LedgerService {
 
     public List<Object[]> getGraphData();
 
-    public List<Object[]> getGraphDataForAgent(String agent);
+//    public List<Object[]> getGraphDataForAgent(String agent);
+//
+//    public List<Ledger> getTRPCommissionOfAnAgent(String agent, String trp);
+//
+//    public List<Ledger> getTRPCommissionWithinRange(String agent, String trp, String start, String end);
 
-    public List<Ledger> getTRPCommissionOfAnAgent(String agent, String trp);
+    public Ledger getTaxPayerOfAnItp(String trp, String tin);
 
-    public List<Ledger> getTRPCommissionWithinRange(String agent, String trp, String start, String end);
-
-    public Ledger getTaxPayerOfATRP(String trp, String tin);
-
-    public List<Object[]> getGraphDataForTrp(String agent);
+    public List<Object[]> getGraphDataForITP(String agent);
 
 
 }

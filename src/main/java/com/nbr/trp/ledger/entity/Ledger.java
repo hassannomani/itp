@@ -34,9 +34,6 @@ public class Ledger {
     @Column(name = "payment_rule",nullable = false)
     public String paymentRule;
 
-//    @Column(name = "payment_method",nullable = false)
-//    public String paymentMethod;
-
     @Column(name = "reference_no")
     public String referenceNo;
 
@@ -46,30 +43,8 @@ public class Ledger {
     @Column(name = "assessment_year",nullable = false)
     public String assessmentYear;
 
-    @Column(name = "agent_tin",nullable = false)
-    public String agentTin;
-
-    @Column(name = "representative_tin",nullable = false)
-    public String representativeTin;
-
-    @Column(name = "agent_commission",nullable = false)
-    public Double agentCommission;
-
-    @Column(name = "representative_commission",nullable = false)
-    public Double representativeCommission;
-
-    @Column(name = "bill_submitted_ag")
-    public String billSubmittedAg;
-
-    @Column(name = "bill_submitted_trp")
-    public String billSubmittedTrp;
-
-    @Column(name="bill_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private String billDate;
-
-    @Column(name = "year_no")
-    public String yearNo;
+    @Column(name = "itp_tin",nullable = false)
+    public String itpTin;
 
     @Column(name = "created_at")
     @CreationTimestamp

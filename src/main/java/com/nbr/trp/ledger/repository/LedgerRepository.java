@@ -32,10 +32,7 @@ public interface LedgerRepository extends JpaRepository<Ledger, String>{
     List<LedgerAdminView> findAllSorted();
 
 
-
-    List<Ledger> findByAgentTin(String id);
-
-    List<Ledger> findByRepresentativeTin(String id);
+    List<Ledger> findByItpTin(String id);
 
     @Query(value = "select * from ledger where created_at >= :startDate AND created_at <=:endDate",nativeQuery = true)
     List<Ledger>findAllWithinDateRange(@Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
@@ -56,8 +53,8 @@ public interface LedgerRepository extends JpaRepository<Ledger, String>{
             "from ledger where agent_tin = :agentTin group by representative_tin",nativeQuery = true)
     List<Object[]> agentCommissionView(@Param("agentTin") String id);
 
-    @Query(value = "select top 10 sum(isnull(cast(paid_amount as float),0)) as sum, representative_tin,representative.re_name from ledger join representative on ledger.representative_tin=representative.tin_no where agent_tin = :agentTin group by representative_tin,re_name",nativeQuery = true)
-    List<Object[]> graphDataAgent(@Param("agentTin") String tin);
+/*    @Query(value = "select top 10 sum(isnull(cast(paid_amount as float),0)) as sum, representative_tin,representative.re_name from ledger join representative on ledger.representative_tin=representative.tin_no where agent_tin = :agentTin group by representative_tin,re_name",nativeQuery = true)
+    List<Object[]> graphDataAgent(@Param("agentTin") String tin);*/
 
     @Query(value = "SELECT SUM(representative_commission) [TotalAmount], DATEPART(Year, created_at) Year, DATEPART(Month, created_at) Month \n" +
             "FROM ledger where representative_tin = :trpTin\n" +
@@ -65,12 +62,12 @@ public interface LedgerRepository extends JpaRepository<Ledger, String>{
             "ORDER BY Year, Month",nativeQuery = true)
     List<Object[]> graphDataTrp(@Param("trpTin") String tin);
 
-    List<Ledger> findByAgentTinAndRepresentativeTin(String agent, String trp);
+    //List<Ledger> findByAgentTinAndRepresentativeTin(String agent, String trp);
 
     @Query(value = "select * from ledger where created_at >= :startDate AND created_at <=:endDate AND agent_tin=:agTin AND representative_tin=:trpTin",nativeQuery = true)
     List<Ledger> getTRPCommissionWithinRange(@Param("agTin") String agTin, @Param("trpTin") String trpTin, @Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
 
-    Ledger findByRepresentativeTinAndTaxpayerId(String trp, String taxpayer);
+    Ledger findByItpTinAndTaxpayerId(String itp, String taxpayer);
 
     @Query(value = "select * from ledger where bill_submitted_ag=0 and agent_tin = :agTin",nativeQuery = true)
     List<Ledger> findAgentBillable(@Param("agTin") String agTin);
