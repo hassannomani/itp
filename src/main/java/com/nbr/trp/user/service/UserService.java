@@ -40,6 +40,9 @@ public interface UserService {
 
     public Boolean myPassChange(User u, String p);
 
+    public User checkUsernameByTin(String username);
+
+
 
 //    public User rejectRepUserByTin(String tin);
 

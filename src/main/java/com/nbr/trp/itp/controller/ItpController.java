@@ -68,7 +68,7 @@ public class ItpController {
     public ResponseEntity<?> getAnITP(HttpServletRequest request, @PathVariable String tin){
         String ip = commonService.getIPAddress(request);
         UserDetailsImpl userDetails = commonService.getDetails();
-        loggerController.TRPIndividualRetrival(userDetails.getUsername(),tin,ip);
+        loggerController.ITPIndividualRetrival(userDetails.getUsername(),tin,ip);
         Optional<ITP> representative = itpService.getUserByTin(tin);
         return ResponseEntity.ok(representative);
 

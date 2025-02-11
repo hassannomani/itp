@@ -160,6 +160,10 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public User checkUsernameByTin(String username) {
+        return userRepository.getByTin(username);
+    }
 
 
 }

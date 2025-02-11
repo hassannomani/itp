@@ -55,21 +55,14 @@ public class LedgerController {
             List<Ledger> ldPreli = ledgerService
                     .getByAssmentYrAndTin(ld.getAssessmentYear(),ld.getTaxpayerId());
 
-            Optional<User> user = userService.getUserByUsername(ld.getItpTin());
+            User user = userService.checkUsernameByTin(ld.getItpTin());
 
-            if(ldPreli.isEmpty() && user.isPresent()){
+            if(ldPreli.isEmpty() && user!=null){
 
-                ledgerService.checkItems(ld);
+                //ledgerService.checkItems(ld);
                 Ledger ldg = ledgerService.saveLedger(ld);
 
-//                loggerController
-//                        .LedgerRequestSaved(
-//                                ip,
-//                                ldg.getAgentTin(),
-//                                ldg.getRepresentativeTin(),
-//                                ldg.getTaxpayerId()
-//                        );
-                //ledgerService.saveCommission(ldg);
+                loggerController.ledgerSaved(ld.getItpTin(),ld.getTaxpayerId());
                 return ResponseEntity
                         .status(201)
                         .body(
@@ -81,13 +74,8 @@ public class LedgerController {
             }
             else if(!ldPreli.isEmpty() && user!=null){
                 System.out.println("bad request");
-//                loggerController
-//                        .LedgerRequestDuplicate(
-//                                ip,
-//                                ld.getAgentTin(),
-//                                ld.getRepresentativeTin(),
-//                                ld.getTaxpayerId()
-//                        );
+                loggerController.ledgerDuplicate(ld.getItpTin(),ld.getTaxpayerId(),ld.getAssessmentYear());
+
                 return ResponseEntity
                         .badRequest()
                         .body(
@@ -97,23 +85,39 @@ public class LedgerController {
                                         "")
                         );
 
-            } else if(ldPreli.isEmpty() && user==null){
-//                loggerController
-//                        .LedgerRequestDuplicate
-//                                (
-//                                        ip,
-//                                        ld.getAgentTin(),
-//                                        ld.getRepresentativeTin(),
-//                                        ld.getTaxpayerId()
-//                                );
+                //                loggerController
+                //                        .LedgerRequestDuplicate(
+                //                                ip,
+                //                                ld.getAgentTin(),
+                //                                ld.getRepresentativeTin(),
+                //                                ld.getTaxpayerId()
+                //                        );
+
+            }
+            else if(ldPreli.isEmpty() && user==null){
+
+                loggerController.ledgerITPNot(ld.getItpTin());
+
                 return ResponseEntity
                         .badRequest()
                         .body(new LedgeAPIResponse(
-                                "TRP & Agent doesn't match",
+                                "ITP not found",
                                 false,
                                 "")
                         );
-            }else{
+
+                //                loggerController
+                //                        .LedgerRequestDuplicate
+                //                                (
+                //                                        ip,
+                //                                        ld.getAgentTin(),
+                //                                        ld.getRepresentativeTin(),
+                //                                        ld.getTaxpayerId()
+                //                                );
+            }
+            else{
+                loggerController.ledgerError(ld.getItpTin());
+
                 return ResponseEntity
                         .badRequest()
                         .body(
@@ -151,7 +155,7 @@ public class LedgerController {
         UserDetailsImpl userDetails = commonService.getDetails();
         try{
             List<Ledger> ldgs = ledgerService.getLedgersOfAnITP(id);
-            loggerController.ListGeneration(userDetails.getUsername(),"All Commission of ITP: "+id, "",ip);
+            loggerController.ListGeneration(userDetails.getUsername(),"All ledgers of ITP: "+id, "",ip);
             return ResponseEntity.ok(ldgs);
         } catch(Exception e){
             loggerController.ErrorHandler(e);
@@ -196,7 +200,7 @@ public class LedgerController {
         UserDetailsImpl userDetails = commonService.getDetails();
         try{
             List<Ledger> ldglist = ledgerService.getLedgersOfARepresentativeRange(itpId,start,end);
-            loggerController.ListGeneration(userDetails.getUsername(),"All Ledgers of TRP: "+itpId+" within the range "+start+" and "+end,"",ip);
+            loggerController.ListGeneration(userDetails.getUsername(),"All Ledgers of ITP: "+itpId+" within the range "+start+" and "+end,"",ip);
             return ResponseEntity.ok(ldglist);
         } catch(Exception e){
             loggerController.ErrorHandler(e);

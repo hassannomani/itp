@@ -31,48 +31,7 @@ public class LedgerServiceImpl implements  LedgerService
 
     @Override
     public Ledger saveLedger(Ledger ledger) {
-
- /*       HashMap<String, String> returnedVal = commissionService.calculateCommission(ledger);
-        Double commission = Double.valueOf(returnedVal.get("sum"));
-        String remarks = returnedVal.get("remarks");
-        ledger.setRemarks(remarks);
-        Double agent = commission*0.1;
-        Double trp = commission *0.9;
-        DecimalFormat df = new DecimalFormat("#.#");
-        df.setRoundingMode(RoundingMode.CEILING);
-        Double agentFin = Double.valueOf(df.format(agent));
-        Double trpFin = Double.valueOf(df.format(trp));
-        ledger.setAgentCommission(agentFin);
-        ledger.setRepresentativeCommission(trpFin);
-        ledger.setBillSubmittedAg("0");
-        ledger.setBillSubmittedTrp("0");
-        Ledger ldg = ledgerRepository.save(ledger);
-        return ldg;*/
-        return null;
-
-//        ledger.setAgentCommission();
-//            if(trp!=null){
-//                Commission cmtrp = new Commission();
-//                cmtrp.setDebitCode(bank.getItemCode());
-//                cmtrp.setCreditCode(trp.getItemCode());
-//                cmtrp.setTaxpayerId(ledger.getTaxpayerId());
-//                cmtrp.setAmount(String.valueOf(commission*0.9));
-//                cmtrp.setRemarks(remarks);
-//                cmtrp.setLedgerId(ledger.getLid());
-//                Commission cmsaved = commissionService.saveCommission(cmtrp);
-//
-//            }
-//            if(agent!=null){
-//                Commission cmag = new Commission();
-//                cmag.setDebitCode(bank.getItemCode());
-//                cmag.setCreditCode(agent.getItemCode());
-//                cmag.setTaxpayerId(ledger.getTaxpayerId());
-//                cmag.setAmount(String.valueOf(commission*0.1));
-//                cmag.setRemarks(remarks);
-//                cmag.setLedgerId(ledger.getLid());
-//                Commission cmsaved = commissionService.saveCommission(cmag);
-//            }
-
+        return ledgerRepository.save(ledger);
     }
 
     @Override
