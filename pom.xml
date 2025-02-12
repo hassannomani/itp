@@ -82,11 +82,11 @@
 			<artifactId>guava</artifactId>
 			<version>23.0</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>ch.qos.logback</groupId>-->
-<!--			<artifactId>logback-core</artifactId>-->
-<!--			<version>1.5.6</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.5.6</version>
+		</dependency>
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>

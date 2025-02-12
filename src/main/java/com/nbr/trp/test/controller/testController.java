@@ -1,5 +1,9 @@
 package com.nbr.trp.test.controller;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.nbr.trp.ledger.entity.LedgerAdminView;
 import com.nbr.trp.user.response.MessageResponse;
 import jakarta.servlet.ServletContext;
@@ -46,10 +50,26 @@ public class testController implements ResourceLoaderAware {
 
 
         String absolutePath = new FileSystemResource("").getFile().getAbsolutePath();
-        Resource resource = resourceLoader.getResource("file:e:/itpnbr/logs/app-logback.log");
+        Resource resource = resourceLoader.getResource("file:"+ absolutePath+"/logs/app-logback.log");
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
             //return ;
-            return ResponseEntity.ok(reader.lines().collect(Collectors.joining("\\n")));
+            //return ResponseEntity.ok(reader.lines().collect(Collectors.joining("\\n")));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            int i=0;
+            sb.append("[");
+            while ((line = reader.readLine()) != null){
+                sb.append(","+line+"\n");
+                //System.out.println("Line "+(++i)+line);
+            }
+            sb.deleteCharAt(1);
+            sb.append("]");
+            //System.out.println(String.valueOf(sb));
+            JsonArray obj = new JsonParser().parse(String.valueOf(sb)).getAsJsonArray();
+            return ResponseEntity.ok(obj);
+
+
         }
 
 
