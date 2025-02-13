@@ -1,13 +1,11 @@
 package com.nbr.trp.test.controller;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.Gson;
 import com.nbr.trp.ledger.entity.LedgerAdminView;
 import com.nbr.trp.user.response.MessageResponse;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.ClassPathResource;
@@ -20,7 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.json.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -60,14 +58,17 @@ public class testController implements ResourceLoaderAware {
             int i=0;
             sb.append("[");
             while ((line = reader.readLine()) != null){
-                sb.append(","+line+"\n");
+                sb.append(line+","+"\n");
                 //System.out.println("Line "+(++i)+line);
             }
-            sb.deleteCharAt(1);
+            sb.deleteCharAt(sb.length()-2);
             sb.append("]");
+            String s = sb.toString();
+//            Gson gson = new Gson();
+//            String jsonified = gson.toJson(s);
             //System.out.println(String.valueOf(sb));
-            JsonArray obj = new JsonParser().parse(String.valueOf(sb)).getAsJsonArray();
-            return ResponseEntity.ok(obj);
+            JSONArray js = new JSONArray(s);
+            return ResponseEntity.ok(s);
 
 
         }
