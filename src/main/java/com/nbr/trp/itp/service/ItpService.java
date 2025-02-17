@@ -12,6 +12,7 @@ public interface ItpService {
     public ITP saveRepresentative(ITP ITP);
 
     public List<ITP> getAllITPs();
+    public List<ITP> getAllITPsByType(String type);
 
     public Optional<ITP> getUserByTin(String tin);
 

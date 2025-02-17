@@ -32,6 +32,11 @@ public class ItpServiceImpl implements ItpService {
     }
 
     @Override
+    public List<ITP> getAllITPsByType(String type) {
+        return itpRepository.findAllByType(type);
+    }
+
+    @Override
     public Optional<ITP> getUserByTin(String tin) {
         return Optional.ofNullable(itpRepository.findByTinNo(tin).orElse(null));
     }

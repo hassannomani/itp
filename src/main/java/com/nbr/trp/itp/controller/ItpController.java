@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/representative")
+@RequestMapping("/api/v1/itp")
 public class ItpController {
 
     @Autowired
@@ -71,6 +71,24 @@ public class ItpController {
         loggerController.ITPIndividualRetrival(userDetails.getUsername(),tin,ip);
         Optional<ITP> representative = itpService.getUserByTin(tin);
         return ResponseEntity.ok(representative);
+
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/allSuspended")
+    public ResponseEntity<?> getallSuspended(HttpServletRequest request) {
+        List<ITP> ls = itpService.getAllITPsByType("-1");
+        loggerController.ListGeneration("","All Suspended ITPs", "Admin",commonService.getIPAddress(request));
+        return ResponseEntity.ok(ls);
+
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/allBlocked")
+    public ResponseEntity<?> getallBlocked(HttpServletRequest request) {
+        List<ITP> ls = itpService.getAllITPsByType("-2");
+        loggerController.ListGeneration("","All Blocked ITPs", "Admin",commonService.getIPAddress(request));
+        return ResponseEntity.ok(ls);
 
     }
 

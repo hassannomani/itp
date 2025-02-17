@@ -24,8 +24,11 @@ public interface ItpRepository extends JpaRepository<ITP, String> {
     @Query(value = "select * from representative left join users on users.username=representative.tin_no where agent_id = :agentTin and status='1'",nativeQuery = true)
     List<ITP> findByAgentId(@Param("agentTin") String tin);
 
-    @Query(value="select * from representative join users on representative.tin_no=users.username where users.status='1'", nativeQuery = true)
+    @Query(value="select * from itp join users on itp.tin_no=users.username where users.status='1'", nativeQuery = true)
     List<ITP> findAll();
+
+    @Query(value="select * from itp join users on itp.tin_no=users.username where users.status = :type", nativeQuery = true)
+    List<ITP> findAllByType(@Param("type") String type);
 
     @Query(value = "select * from representative where tin_no = :trpTin",nativeQuery = true)
     ITP findByTin(@Param("trpTin") String tin);
