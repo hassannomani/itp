@@ -66,6 +66,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/v1/common/photo/**").permitAll()
                 .requestMatchers("/api/v1/year/find-latest").permitAll()
                 .requestMatchers("/api/trpereturn/psr/**").permitAll()
+                .requestMatchers("/api/v1/logs/**").permitAll()
                 .requestMatchers("/api/v1/testcontroller/logs").permitAll()
 
                 .anyRequest()

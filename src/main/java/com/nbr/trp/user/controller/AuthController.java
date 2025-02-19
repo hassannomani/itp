@@ -160,7 +160,7 @@ public class AuthController {
             }
         }else{
             System.out.println("here");
-            loggerController.LoginError(userDetails.getUuid(),ip);
+            loggerController.LoginError(userDetails.getUsername(),ip);
 
             return ResponseEntity.status(403).body("Error! Please try again");
         }

@@ -37,7 +37,7 @@ public interface LedgerRepository extends JpaRepository<Ledger, String>{
     @Query(value = "select * from ledger where created_at >= :startDate AND created_at <=:endDate",nativeQuery = true)
     List<Ledger>findAllWithinDateRange(@Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
 
-    @Query(value = "select * from ledger where created_at >= :startDate AND created_at <=:endDate AND representative_tin=:repId",nativeQuery = true)
+    @Query(value = "select * from ledger where created_at >= :startDate AND created_at <=:endDate AND itp_tin=:repId",nativeQuery = true)
     List<Ledger>findAllReprstvLedgerWithinRange(@Param("repId") String repId, @Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
 
     @Query(value = "select * from ledger where created_at >= :startDate AND created_at <=:endDate AND agent_tin=:agId",nativeQuery = true)
