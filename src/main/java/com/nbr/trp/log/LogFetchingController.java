@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 @CrossOrigin(origins = "*", maxAge = 4800)
 @RestController
@@ -72,35 +73,55 @@ public class LogFetchingController implements ResourceLoaderAware {
     @GetMapping("/login-single")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getLogIns(HttpServletRequest request) throws IOException {
-        String logs = getLogsByEvent("login");
+        String logs = getLogsByEvent("login","app-logback.log");
         return ResponseEntity.ok(logs);
 
     }
 
-    private String getLogsByEvent(String event) throws IOException{
+    @GetMapping("/jwt-single")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getJwtError(HttpServletRequest request) throws IOException {
+        String logs = getLogsByEvent("unauth_url_jwt_attempt","sever-logger.log");
+        return ResponseEntity.ok(logs);
+
+    }
+
+    @GetMapping("/login-error-single")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getLogInError(HttpServletRequest request) throws IOException {
+        String logs = getLogsByEvent("login_error","severe-logger.log");
+        return ResponseEntity.ok(logs);
+
+    }
+    private String getLogsByEvent(String event, String filename) throws IOException{
         String absolutePath = new FileSystemResource("").getFile().getAbsolutePath();
-        Resource resource = resourceLoader.getResource("file:"+ absolutePath+"/logs/app-logback.log");
+        Resource resource = resourceLoader.getResource("file:"+ absolutePath+"/logs/"+filename);
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
 
             StringBuilder sb = new StringBuilder();
             String line;
-            int i=0;
+            int i = 0;
             sb.append("[");
-            while ((line = reader.readLine()) != null)
-                sb.append(line+","+"\n");
+            while ((line = reader.readLine()) != null) {
+                String[] arr = line.split(",");
+                for (int j = 0; j < arr.length; j++) {
+                    if (arr[j].contains("event_type")){
+                        String variable = arr[j];
+                        if(variable.contains(event))
+                            sb.append(line + "," + "\n");
+                    }
 
-            sb.deleteCharAt(sb.length()-2);
+                }
+
+            }
+            if(sb.length()>2)
+                sb.deleteCharAt(sb.length() - 2);
             sb.append("]");
-            StringBuilder filtered = new StringBuilder();
-
-            System.out.println(sb.length());
-            String s = sb.toString();
-            return String.valueOf(sb.length());
-
+            System.out.println(sb);
+            return sb.toString();
 
         }
-
 
     }
 

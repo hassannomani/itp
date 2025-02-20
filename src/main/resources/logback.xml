@@ -55,8 +55,7 @@
         </rollingPolicy>
     </appender>
 
-    <appender name="SevereRollingFile"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="SevereRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/severe-logger.log</file>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
@@ -76,6 +75,8 @@
                         "event_type": "%mdc{abc}"
                         }
                     </pattern>
+                    <omitEmptyFields>true</omitEmptyFields>
+
                 </pattern>
             </providers>
         </encoder>

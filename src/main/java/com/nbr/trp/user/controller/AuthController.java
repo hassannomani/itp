@@ -77,7 +77,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl)
                 authentication.getPrincipal();
-        //System.out.println("status is "+userDetails.getStatus());
+        System.out.println("status is "+userDetails.getStatus());
         if(userDetails.getUsername().equals("ereturn")){
             if(userDetails.getStatus().equals("1")){
                 loggerController.Login(userDetails.getUuid(),ip);
@@ -104,12 +104,14 @@ public class AuthController {
                             roles
                     )
             );
-        }else if(userDetails.getStatus().equals("0")){
+        }
+        else if(userDetails.getStatus().equals("0")){
 
             loggerController.LoginFailedUnApproved(userDetails.getUuid(),ip);
             return ResponseEntity.status(403).body("Approval Required");
 
-        }else if(userDetails.getStatus().equals("-3")){
+        }
+        else if(userDetails.getStatus().equals("-3")){
 
             loggerController.LoginFailedDeny(userDetails.getUuid(),ip);
             Action action = actionService.getActionByTypeAndTin("DENY",userDetails.getUsername());
@@ -159,9 +161,9 @@ public class AuthController {
                 );
             }
         }else{
+            System.out.println("unameeeeeeeeeeeeee"+userDetails.getUsername());
+            //loggerController.LoginError(userDetails.getUsername(),ip);
             System.out.println("here");
-            loggerController.LoginError(userDetails.getUsername(),ip);
-
             return ResponseEntity.status(403).body("Error! Please try again");
         }
 

@@ -58,7 +58,7 @@ public class LoggerController {
     public void LoginError(String uname, String ip){
         MDC.clear();
         MDC.put("event_type","login_error");
-        logger.error("Credential mismatched for user "+uname +" from ip: "+ip);
+        logger.error(" .Credential mismatched for user "+uname +" from ip: "+ip);
         MDC.remove("event_type");
     }
 
@@ -85,7 +85,7 @@ public class LoggerController {
 
     public void RegistrationSuccess(String username, String ip){
         MDC.clear();
-        MDC.put("event_type","unauth_role_attempt");
+        MDC.put("event_type","registration_success");
         logger.info(username+ " has successfully registered from ip: "+ip);
         MDC.remove("event_type");
     }

@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/v1/common/citycorporation").permitAll()
                 .requestMatchers("/api/address/add").permitAll()
                 .requestMatchers("/api/bank/add").permitAll()
-                .requestMatchers("/api/v1/representative/add").permitAll()
+                .requestMatchers("/api/v1/itp/add").permitAll()
                 .requestMatchers("/api/agent/allfront").permitAll()
                 .requestMatchers("/api/v1/users/roles").permitAll()
                 .requestMatchers("/api/v1/users/mypassword/**").permitAll()

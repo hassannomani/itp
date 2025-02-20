@@ -5,6 +5,7 @@ import com.nbr.trp.common.entity.OTPResponseModel;
 import com.nbr.trp.common.service.CommonService;
 import com.nbr.trp.log.LoggerController;
 import com.nbr.trp.user.entity.ErrorStatus;
+import com.nbr.trp.user.service.UserDetailsImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,11 +34,19 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        //String ip = commonService.getIPAddress(request);
+        //UserDetailsImpl userDetails = commonService.getDetails();
 
         logger.error("Unauthorized error: {}", authException.getMessage());
+        //loggerController.LoginError(userDetails.getUsername(),ip);
+        try{
+            String ip = commonService.getIPAddress(request);
+            loggerController.LoginError(request.getParameter("username"),ip);
+        }catch(Exception e){
+            System.out.println("Exception....."+e);
+        }
 
-        String ip = commonService.getIPAddress(request);
-        loggerController.UnAuthorized("Unauthorized access from "+ip);
+        //loggerController.UnAuthorized("Unauthorized access from "+ip);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
@@ -58,6 +67,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
             response.getWriter().write(json);
         } catch (IOException e) {
             logger.error(String.format(e.getMessage()));
+            System.out.println(String.format(e.getMessage()));
         }
     }
 
