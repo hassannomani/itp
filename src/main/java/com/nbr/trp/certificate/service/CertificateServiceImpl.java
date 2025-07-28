@@ -33,13 +33,13 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public Boolean getCertificateByTinNNid(String tin, String nid) {
 
-        return certificateRepository.existsByExamineeTinAndExamineeNid(tin, nid);
+        return certificateRepository.existsByTinAndNid(tin, nid);
     }
 
     @Override
     public Certificate returnCertificateByTinNNid(String tin, String nid) {
 
-        return certificateRepository.findByExamineeTinAndExamineeNid(tin, nid);
+        return certificateRepository.findByTinAndNid(tin, nid);
     }
 
     @Override

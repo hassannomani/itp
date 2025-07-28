@@ -6,7 +6,13 @@
 <!--            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n-->
 <!--            </Pattern>-->
 <!--        </layout>-->
+
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <suffix class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>,</pattern>
+                </layout>
+            </suffix>
             <providers>
                 <timestamp/>
                 <version/>
@@ -20,13 +26,21 @@
                         }
                     </pattern>
                 </pattern>
+                <suffix>,</suffix>
+
             </providers>
+
         </encoder>
     </appender>
 
     <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/app-logback.log</file>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <suffix class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>,</pattern>
+                </layout>
+            </suffix>
             <providers>
                 <timestamp/>
                 <version/>
@@ -41,6 +55,7 @@
                         "event_type": "%mdc{abc}"
                         }
                     </pattern>
+
                     <omitEmptyFields>true</omitEmptyFields>
 
                 </pattern>
@@ -61,6 +76,11 @@
             <level>WARN</level>
         </filter>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <suffix class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>,</pattern>
+                </layout>
+            </suffix>
             <providers>
                 <timestamp/>
                 <version/>

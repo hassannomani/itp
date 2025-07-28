@@ -105,4 +105,18 @@ public class CertificateController {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
+
+    @GetMapping("/get/all")
+    public ResponseEntity<?> getAllCertPublic(HttpServletRequest request){
+        String ip = commonService.getIPAddress(request);
+        try{
+            List<Certificate> certs = certificateService.getAllCertificates();
+            loggerController.ListGeneration("","All Certificates Public","Admin",ip);
+            return ResponseEntity.ok(certs);
+
+        } catch(Exception e){
+            loggerController.ErrorHandler(e);
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+    }
 }

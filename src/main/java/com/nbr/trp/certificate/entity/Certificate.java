@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Setter
 @Getter
@@ -17,31 +19,23 @@ public class Certificate {
     @Column(columnDefinition = "uniqueidentifier default newid()")
     public String certid;
 
-    @Column(name = "examinee_tin",nullable = false, unique = true)
-    public String examineeTin;
+    @Column(name = "tin",nullable = false, unique = true)
+    public String tin;
 
-    @Column(name = "examinee_nid",nullable = false)
-    public String examineeNid;
+    @Column(name = "nid",nullable = false)
+    public String nid;
 
-    @Column(name = "examinee_license",nullable = false)
-    public String examineeLicense;
+    @Column(name = "mobile",nullable = false)
+    public String mobile;
 
-    @Column(name = "examinee_mobile",nullable = false)
-    public String examineeMobile;
+    @Column(name = "category",nullable = false)
+    public String category;
 
-    @Column(name="examinee_certno")
-    public String examineeCertno;
+    @Column(name = "registration_no",nullable = false)
+    public String registrationNo;
 
-    @Column(name="examinee_certserial")
-    public String examineeCertserial;
+    @Column(name = "registration_date")
+    public Date registrationDate;
 
-    public Certificate(String certid, String examineeTin, String examineeNid, String examineeLicense, String examineeMobile, String examineeCertno, String examineeCertserial) {
-        this.certid = certid;
-        this.examineeTin = examineeTin;
-        this.examineeNid = examineeNid;
-        this.examineeLicense = examineeLicense;
-        this.examineeMobile = examineeMobile;
-        this.examineeCertno = examineeCertno;
-        this.examineeCertserial = examineeCertserial;
-    }
+
 }

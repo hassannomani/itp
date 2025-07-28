@@ -52,7 +52,7 @@ public class LogFetchingController implements ResourceLoaderAware {
             int i=0;
             sb.append("[");
             while ((line = reader.readLine()) != null){
-                sb.append(line+","+"\n");
+                sb.append(line+"\n");
                 //System.out.println("Line "+(++i)+line);
             }
             sb.deleteCharAt(sb.length()-2);

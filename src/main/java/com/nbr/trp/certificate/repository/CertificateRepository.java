@@ -16,12 +16,12 @@ public interface CertificateRepository extends JpaRepository<Certificate, String
 
     Certificate findByCertid (String id);
 
-    Boolean existsByExamineeTinAndExamineeNid(String tin,String nid);
+    Boolean existsByTinAndNid(String tin,String nid);
 
     List<Certificate> findAll();
 
 
-    Certificate findByExamineeTinAndExamineeNid(String tin,String nid);
+    Certificate findByTinAndNid(String tin,String nid);
 
     @Query(value = "select * from certificates where examinee_tin in :arr ",nativeQuery = true)
     List<Certificate> checkDuplicacy(List<String> arr);
