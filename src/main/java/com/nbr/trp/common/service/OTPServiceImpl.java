@@ -62,8 +62,10 @@ public class OTPServiceImpl implements OTPService{
         System.out.println("here i come-------------");
         OTPResponseModel otpResponseModelret;
         String otp = generateOTP(mobile);
-        String url = baseURL + sendURL+"txtMessage="+otp+"&msisdn="+mobile+
-                "&usrname="+userName+"&password="+password;
+//        String url = baseURL + sendURL+"txtMessage="+otp+"&msisdn="+mobile+
+//                "&usrname="+userName+"&password="+password;
+        String url = baseURL + sendURL+"?api_token="+password+"&senderid="+userName+
+                "&message=Your+otp+is:+"+otp+"&contact_number="+mobile;
         System.out.println("url : " + url);
 
         HttpHeaders headers = new HttpHeaders();
