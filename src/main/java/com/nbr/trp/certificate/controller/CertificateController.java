@@ -66,7 +66,7 @@ public class CertificateController {
         try{
             Boolean certificate = certificateService.getCertificateByTinNNid(tin, nid);
             loggerController.CertificateCheck(ip);
-            System.out.println("cert"+certificate);
+            //System.out.println("cert"+certificate);
             return ResponseEntity.ok(certificate);
 
         } catch(Exception e){
