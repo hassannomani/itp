@@ -46,6 +46,11 @@ public class ItpServiceImpl implements ItpService {
         return Optional.ofNullable(itpRepository.findByUserid(id).orElse(null));
     }
 
+    @Override
+    public List<Object[]> getAllCount() {
+        return itpRepository.findUsersByType();
+    }
+
 
 
 }

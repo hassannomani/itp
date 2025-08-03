@@ -141,6 +141,10 @@ public class LedgerServiceImpl implements  LedgerService
         return ledgerRepository.graphDataTrp(trp);
     }
 
+    public List<Object[]> getGraphDataMonthwise(){
+        return ledgerRepository.sumMonthWise();
+    }
+
 
 
 

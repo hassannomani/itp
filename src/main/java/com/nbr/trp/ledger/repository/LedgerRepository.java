@@ -75,6 +75,14 @@ public interface LedgerRepository extends JpaRepository<Ledger, String>{
     @Query(value = "select * from ledger where bill_submitted_trp=0 and representative_tin = :repTin",nativeQuery = true)
     List<Ledger> findTRPBillable(@Param("repTin") String repTin);
 
+    @Query(value = "SELECT \n" +
+            "  FORMAT(created_at, 'MM-yyyy') AS month,\n" +
+            "  sum(isnull(cast(paid_amount as float),0)) AS total_paid\n" +
+            "FROM ledger\n" +
+            "GROUP BY FORMAT(created_at, 'MM-yyyy')\n" +
+            "ORDER BY month;",nativeQuery = true)
+    List<Object[]> sumMonthWise();
+
 }
 
 

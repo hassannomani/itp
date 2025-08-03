@@ -32,11 +32,7 @@ public interface LedgerService {
 
     public List<Object[]> getGraphData();
 
-//    public List<Object[]> getGraphDataForAgent(String agent);
-//
-//    public List<Ledger> getTRPCommissionOfAnAgent(String agent, String trp);
-//
-//    public List<Ledger> getTRPCommissionWithinRange(String agent, String trp, String start, String end);
+    public List<Object[]> getGraphDataMonthwise();
 
     public Ledger getTaxPayerOfAnItp(String trp, String tin);
 

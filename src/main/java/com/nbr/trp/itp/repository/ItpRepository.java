@@ -40,7 +40,8 @@ public interface ItpRepository extends JpaRepository<ITP, String> {
     @Query(value = "select * from representative where tin_no = :trpTin and agent_id = :agTin",nativeQuery = true)
     ITP findSingleTRPOfAgent(@Param("agTin") String agTin, @Param("trpTin") String trpTin);
 
-
+    @Query(value = "select count(type) as user_count,type from itp group by type",nativeQuery = true)
+    List<Object[]> findUsersByType();
 
 
 }

@@ -13,6 +13,7 @@ public interface ItpService {
 
     public List<ITP> getAllITPs();
     public List<ITP> getAllITPsByType(String type);
+    public List<Object[]> getAllCount();
 
     public Optional<ITP> getUserByTin(String tin);
 

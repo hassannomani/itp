@@ -54,6 +54,8 @@ public class LedgerController {
         try{
             List<Ledger> ldPreli = ledgerService
                     .getByAssmentYrAndTin(ld.getAssessmentYear(),ld.getTaxpayerId());
+            System.out.println(ld.getAssessmentYear());
+            System.out.println(ld.getTaxpayerId());
 
             User user = userService.checkUsernameByTin(ld.getItpTin());
 
@@ -306,6 +308,22 @@ public class LedgerController {
         try{
             List<Object[]> ob = ledgerService.getGraphDataForITP(tin);
             loggerController.ListGeneration(userDetails.getUsername(),"Graph plotting for trp: "+tin+" for graph", "",ip);
+
+            return ResponseEntity.ok(ob);
+        } catch(Exception e){
+            loggerController.ErrorHandler(e);
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/graph/monthwise")
+    public ResponseEntity<?> getGraphMonthwise(HttpServletRequest request){
+        String ip = commonService.getIPAddress(request);
+        UserDetailsImpl userDetails = commonService.getDetails();
+        try{
+            List<Object[]> ob = ledgerService.getGraphDataMonthwise();
+            loggerController.ListGeneration(userDetails.getUsername(),"All Data for Graph", "",ip);
 
             return ResponseEntity.ok(ob);
         } catch(Exception e){

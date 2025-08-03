@@ -51,6 +51,12 @@ public class ITP {
     @Column(name="lic_no", nullable = false)
     public String licNo;
 
+    @Column(name="name_bar_assoc")
+    public String nameBarAssoc;
+
+    @Column(name="reg_bar_assoc")
+    public String regBarAssoc;
+
     @Column(name = "cert_pass")
     public Date certPass;
 

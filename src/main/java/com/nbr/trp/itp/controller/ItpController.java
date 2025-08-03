@@ -92,6 +92,15 @@ public class ItpController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/count")
+    public ResponseEntity<?> getTotalList(HttpServletRequest request) {
+        List<Object[]> ls = itpService.getAllCount();
+        loggerController.ListGeneration("","All Type ITPs", "Admin",commonService.getIPAddress(request));
+        return ResponseEntity.ok(ls);
+
+    }
+
 
 
 
