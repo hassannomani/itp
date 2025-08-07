@@ -38,5 +38,9 @@ public interface LedgerService {
 
     public List<Object[]> getGraphDataForITP(String agent);
 
+    public List<Object[]> getDashBoardDataTotal();
+    public List<Object[]> getDashBoardDataTotalCurrentMonth();
+
+
 
 }

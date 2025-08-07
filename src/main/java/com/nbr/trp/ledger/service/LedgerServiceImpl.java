@@ -144,6 +144,13 @@ public class LedgerServiceImpl implements  LedgerService
     public List<Object[]> getGraphDataMonthwise(){
         return ledgerRepository.sumMonthWise();
     }
+    public List<Object[]> getDashBoardDataTotal(){
+        return ledgerRepository.dashBoardDataTotal();
+    }
+
+    public List<Object[]> getDashBoardDataTotalCurrentMonth(){
+        return ledgerRepository.dashBoardDataCurrentMonth();
+    }
 
 
 

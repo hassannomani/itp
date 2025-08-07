@@ -83,6 +83,17 @@ public interface LedgerRepository extends JpaRepository<Ledger, String>{
             "ORDER BY month;",nativeQuery = true)
     List<Object[]> sumMonthWise();
 
+    @Query(value = "select sum(isnull(cast(paid_amount as float),0)) total, " +
+            "count(lid) paid from ledger \n",nativeQuery = true)
+    List<Object[]> dashBoardDataTotal();
+
+    @Query(value = "select sum(isnull(cast(paid_amount as float),0)) total_current, " +
+            "count(lid) paid_current from ledger where \n" +
+            "YEAR(created_at) = YEAR(GETDATE()) and " +
+            "MONTH(created_at)= MONTH(GETDATE())",nativeQuery = true)
+    List<Object[]> dashBoardDataCurrentMonth();
+
+
 }
 
 

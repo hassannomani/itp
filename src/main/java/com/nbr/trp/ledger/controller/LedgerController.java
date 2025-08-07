@@ -332,5 +332,36 @@ public class LedgerController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("dashboard/total")
+    public ResponseEntity<?> getDashBoardTotal(HttpServletRequest request){
+        String ip = commonService.getIPAddress(request);
+        UserDetailsImpl userDetails = commonService.getDetails();
+        try{
+            List<Object[]> ob = ledgerService.getDashBoardDataTotal();
+            loggerController.ListGeneration(userDetails.getUsername(),"All Data for Dashboard", "Admin",ip);
+
+            return ResponseEntity.ok(ob);
+        } catch(Exception e){
+            loggerController.ErrorHandler(e);
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("dashboard/current")
+    public ResponseEntity<?> getDashBoardTotalCurrent(HttpServletRequest request){
+        String ip = commonService.getIPAddress(request);
+        UserDetailsImpl userDetails = commonService.getDetails();
+        try{
+            List<Object[]> ob = ledgerService.getDashBoardDataTotalCurrentMonth();
+            loggerController.ListGeneration(userDetails.getUsername(),"All Data for Dashboard for Current Month", "Admin",ip);
+
+            return ResponseEntity.ok(ob);
+        } catch(Exception e){
+            loggerController.ErrorHandler(e);
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+    }
 
 }
