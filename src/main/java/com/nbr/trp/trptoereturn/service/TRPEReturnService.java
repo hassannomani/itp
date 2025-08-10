@@ -11,7 +11,7 @@ public interface TRPEReturnService {
 
     TRPEReturnAuthResponseModel getAuthResponse();
 
-    TRPEReturnOTPReponseModel getEReturnResponse(TRPEReturnOTPRequestModel value);
+    TRPEReturnPreOTPSendResponseModel getEReturnResponse(TRPEReturnOTPRequestModel value);
 
     HttpEntity createHttpHeaders();
 

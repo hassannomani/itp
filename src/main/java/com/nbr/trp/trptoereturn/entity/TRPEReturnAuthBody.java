@@ -17,6 +17,4 @@ public class TRPEReturnAuthBody {
 
     private Boolean success;
 
-    private String redirectURL;
-
 }

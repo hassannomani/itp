@@ -1,5 +1,8 @@
 package com.nbr.trp.trptoereturn.service;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.nbr.trp.common.entity.ETinAuthModel;
@@ -82,24 +85,46 @@ public class TRPEReturnServiceImpl implements TRPEReturnService {
     }
 
     @Override
-    public TRPEReturnOTPReponseModel getEReturnResponse(TRPEReturnOTPRequestModel request) {
+    public TRPEReturnPreOTPSendResponseModel getEReturnResponse(TRPEReturnOTPRequestModel request) {
 
         HttpEntity headers = createHttpHeaders();
         String url = baseURL + ereturnURL;
+        System.out.println(headers.getHeaders());
+        System.out.println(request);
+
         //System.out.println("url : " + url);
         HttpEntity<?> httpEntity = new HttpEntity<>(request, headers.getHeaders());
-        ResponseEntity<TRPEReturnOTPReponseModel> eReturnResponse;
-
+        ResponseEntity<TRPEReturnPreOTPSendResponseModel> eReturnResponse;
 
         try {
-            eReturnResponse = restTemplate.exchange(url, HttpMethod.POST, httpEntity, TRPEReturnOTPReponseModel.class);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // don't log nulls as empty
+            String requestJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(request);
+
+            System.out.println("=== Sending Request to API ===");
+            System.out.println("URL: " + baseURL + ereturnURL);
+            System.out.println("Headers: " + headers);
+            System.out.println("Payload:\n" + requestJson);
+            System.out.println("==============================");
+
+        } catch (JsonProcessingException e) {
+            System.err.println("Error serializing request object: " + e.getMessage());
+        }
+
+        try {
+            eReturnResponse = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    httpEntity,
+                    TRPEReturnPreOTPSendResponseModel.class
+            );
 
             //eReturnResponse = restTemplate.exchange(url, HttpMethod.GET, httpHeadersEntity, String.class).getBody();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             throw ex;
         }
-        TRPEReturnOTPReponseModel finalResponseToReturn;
+        TRPEReturnPreOTPSendResponseModel finalResponseToReturn;
         finalResponseToReturn = eReturnResponse.getBody();
         //eReturnResponse = new Gson().fromJson(tinResponse, ETinResponseModel.class);
         if (finalResponseToReturn == null) {

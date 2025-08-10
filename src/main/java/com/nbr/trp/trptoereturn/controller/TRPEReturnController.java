@@ -33,7 +33,7 @@ public class TRPEReturnController {
     LoggerController loggerController;
 
     @PostMapping("")
-    public ResponseEntity<TRPEReturnOTPReponseModel> getOTPMsg(HttpServletRequest request, @RequestBody TRPEReturnOTPRequestModel val) {
+    public ResponseEntity<TRPEReturnPreOTPSendResponseModel> getOTPMsg(HttpServletRequest request, @RequestBody TRPEReturnOTPRequestModel val) {
 
 //        String ip = commonService.getIPAddress(request);
 //        try {
@@ -48,7 +48,7 @@ public class TRPEReturnController {
 //            //System.out.println(e.g);
 //            loggerController.ErrorHandler(e);
 //            return new ResponseEntity<>(model, HttpStatus.OK);
-        TRPEReturnOTPReponseModel response = trpeReturnService.getEReturnResponse(val);
+        TRPEReturnPreOTPSendResponseModel response = trpeReturnService.getEReturnResponse(val);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
 //            return ResponseEntity

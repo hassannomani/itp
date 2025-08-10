@@ -7,9 +7,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TRPEReturnOTPReponseModel {
+public class TRPEReturnPreOTPSendResponseModel {
 
-    private TRPEReturnOTPReponseReplyMessage replyMessage;
+    private TRPEReturnPreOTPSendReponseMessageInner replyMessage;
 
     private Boolean success;
 
@@ -18,4 +18,6 @@ public class TRPEReturnOTPReponseModel {
     private String errorMessage;
 
     private String message;
+
+
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class TRPEReturnOTPValidatedResponse {
 
-    private TRPEReturnOTPValidatedReplyMessages replyMessage;
+    private TRPEReturnOTPValidatedReplyMessagesInner replyMessage;
 
     private Boolean success;
 

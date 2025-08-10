@@ -9,13 +9,12 @@ import lombok.*;
 @AllArgsConstructor
 public class TRPEReturnOTPValidateModel {
 
-    private String orgId;
 
-    private String agentId;
+    private String agentTin;
 
-    private String tinNo;
+    private String taxpayerTin;
 
-    private String phoneNo;
+    private String taxpayerPhoneNo;
 
     private Integer otp;
 }

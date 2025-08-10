@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TRPEReturnOTPReponseReplyMessage {
+public class TRPEReturnPreOTPSendReponseMessageInner {
 
     String responseType;
 
