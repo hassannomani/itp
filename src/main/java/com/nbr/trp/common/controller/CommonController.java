@@ -127,6 +127,23 @@ public class CommonController {
         }
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/taxesbarassoc")
+    public ResponseEntity<?> getTaxesBarAssoc(HttpServletRequest request) {
+        String ip = commonService.getIPAddress(request);
+        try{
+            List<TaxesBarAssoc> ds = commonService.getAllTaxesBar();
+            loggerController.ListGeneration("","All Taxes Bar","",ip);
+            return new ResponseEntity<>(ds, HttpStatus.CREATED);
+
+        }catch(Exception e){
+            loggerController.ErrorHandler(e);
+
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+    }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/file")
     public ResponseEntity<FileResponse> filepost(HttpServletRequest request, @RequestPart("file") MultipartFile file) throws FileSizeLimitExceededException {

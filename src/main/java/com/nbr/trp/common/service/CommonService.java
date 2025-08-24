@@ -17,6 +17,8 @@ public interface CommonService {
 
     List<CityCorporation> getAllCityCorporation();
 
+    List<TaxesBarAssoc> getAllTaxesBar();
+
     UserDetailsImpl getDetails();
 
     String getIPAddress(HttpServletRequest request);

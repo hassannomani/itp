@@ -20,17 +20,19 @@ import java.util.List;
 public class CommonServiceImpl implements CommonService{
 
     @Autowired
-    DivisionRepository divisionRepository;
-
-    @Autowired
     DistrictRepository districtRepository;
 
     @Autowired
     ThanaRepository thanaRepository;
 
-
     @Autowired
     CityCorporationRepository cityCorporationRepository;
+
+    @Autowired
+    TaxesBarAssocRepository taxesBarAssocRepository;
+
+    @Autowired
+    DivisionRepository divisionRepository;
 
     private final String LOCALHOST_IPV4 = "127.0.0.1";
     private final String LOCALHOST_IPV6 = "0:0:0:0:0:0:0:1";
@@ -48,16 +50,23 @@ public class CommonServiceImpl implements CommonService{
         return ds;
     }
 
+    @Autowired
     public List<Thana> getAllThana() {
         List<Thana> th = thanaRepository.findAll();
         return th;
     }
 
 
-
+    @Autowired
     public List<CityCorporation> getAllCityCorporation(){
         List<CityCorporation> cityCorporations = cityCorporationRepository.findAll();
         return cityCorporations;
+    }
+
+    @Autowired
+    public List<TaxesBarAssoc> getAllTaxesBar() {
+        List<TaxesBarAssoc> th = taxesBarAssocRepository.findAll();
+        return th;
     }
 
     public UserDetailsImpl getDetails(){
