@@ -1,7 +1,6 @@
 package com.nbr.trp.common.repository;
 
-import com.nbr.trp.common.entity.Address;
-import com.nbr.trp.common.entity.District;
+
 import com.nbr.trp.common.entity.Division;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

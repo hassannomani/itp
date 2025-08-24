@@ -13,29 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
-import static org.springframework.web.servlet.function.ServerResponse.ok;
 
 @CrossOrigin(origins = "*", maxAge = 4800)
 @RestController
@@ -133,7 +122,7 @@ public class CommonController {
     public ResponseEntity<?> getTaxesBarAssoc(HttpServletRequest request) {
         String ip = commonService.getIPAddress(request);
         try{
-            List<TaxesBarAssoc> ds = commonService.getAllTaxesBar();
+            List<TaxesBarAssociation> ds = commonService.getAllTaxesBar();
             loggerController.ListGeneration("","All Taxes Bar","",ip);
             return new ResponseEntity<>(ds, HttpStatus.CREATED);
 

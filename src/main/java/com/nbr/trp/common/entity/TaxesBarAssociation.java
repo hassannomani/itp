@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Table(name = "taxesbarassoc")
-public class TaxesBarAssoc {
+public class TaxesBarAssociation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +19,4 @@ public class TaxesBarAssoc {
 
     @Column(name = "name")
     private String name;
-
 }

@@ -13,12 +13,13 @@ import org.springframework.util.StringUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CommonServiceImpl implements CommonService{
 
+    @Autowired
+    DivisionRepository divisionRepository;
     @Autowired
     DistrictRepository districtRepository;
 
@@ -29,10 +30,9 @@ public class CommonServiceImpl implements CommonService{
     CityCorporationRepository cityCorporationRepository;
 
     @Autowired
-    TaxesBarAssocRepository taxesBarAssocRepository;
+    TaxesBarAssociationRepository taxesBarAssocRepository;
 
-    @Autowired
-    DivisionRepository divisionRepository;
+
 
     private final String LOCALHOST_IPV4 = "127.0.0.1";
     private final String LOCALHOST_IPV6 = "0:0:0:0:0:0:0:1";
@@ -50,24 +50,23 @@ public class CommonServiceImpl implements CommonService{
         return ds;
     }
 
-    @Autowired
+    @Override
     public List<Thana> getAllThana() {
         List<Thana> th = thanaRepository.findAll();
         return th;
     }
 
-
-    @Autowired
+    @Override
+    public List<TaxesBarAssociation> getAllTaxesBar(){
+        List<TaxesBarAssociation> th = taxesBarAssocRepository.findAll();
+        return th;
+    };
+    @Override
     public List<CityCorporation> getAllCityCorporation(){
         List<CityCorporation> cityCorporations = cityCorporationRepository.findAll();
         return cityCorporations;
     }
 
-    @Autowired
-    public List<TaxesBarAssoc> getAllTaxesBar() {
-        List<TaxesBarAssoc> th = taxesBarAssocRepository.findAll();
-        return th;
-    }
 
     public UserDetailsImpl getDetails(){
         SecurityContext context = SecurityContextHolder.getContext();

@@ -17,7 +17,7 @@ public interface CommonService {
 
     List<CityCorporation> getAllCityCorporation();
 
-    List<TaxesBarAssoc> getAllTaxesBar();
+    List<TaxesBarAssociation> getAllTaxesBar();
 
     UserDetailsImpl getDetails();
 
