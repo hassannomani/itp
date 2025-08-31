@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -28,6 +29,9 @@ public class Certificate {
     @Column(name = "mobile",nullable = false)
     public String mobile;
 
+    @Column(name = "name")
+    public String name;
+
     @Column(name = "category",nullable = false)
     public String category;
 
@@ -36,6 +40,16 @@ public class Certificate {
 
     @Column(name = "registration_date")
     public Date registrationDate;
+
+    @Column(name = "taxesbar_assoc")
+    public String taxesbarAssoc;
+
+    @Column(name = "taxesbar_assoc_reg")
+    public String taxesbarAssocReg;
+
+    @Column(name = "created")
+    @CreationTimestamp
+    public Date created;
 
 
 }

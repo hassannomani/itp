@@ -18,4 +18,7 @@ public interface TRPEReturnService {
     TRPEReturnOTPValidatedResponse validateOTP(TRPEReturnOTPValidateModel model);
 
     TRPAssessmentYearResponse checkPSR(String tin, String year);
+
+
+    TRPEReturnOTPValidatedResponse getEReturnResponseForAlreadyValidated(TRPEReturnOTPRequestModel val);
 }

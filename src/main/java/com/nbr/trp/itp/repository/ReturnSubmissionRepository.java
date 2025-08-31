@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 public interface ReturnSubmissionRepository extends JpaRepository<ReturnSubmission, String> {
 
-    ReturnSubmission findByItpTinAndTaxpayerAndAssessmentYear(String tin, String taxpayer, String assessmentyear);
+    ReturnSubmission findByItpTinAndTaxpayer(String tin, String taxpayer);
+
+    ReturnSubmission save(ReturnSubmission ret);
 }

@@ -98,8 +98,22 @@ public class TRPEReturnController {
 
     }
 
+    @PostMapping("/validated")
+    public ResponseEntity<?> ereturnValidatedGateway(HttpServletRequest request, @RequestBody TRPEReturnOTPRequestModel val) {
+        try {
+            TRPEReturnOTPValidatedResponse response = trpeReturnService.getEReturnResponseForAlreadyValidated(val);
+            loggerController.OTPValidate(commonService.getIPAddress(request));
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
 
+            loggerController.ErrorHandler(e);
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(e.getMessage());
 
+        }
+
+    }
 //    public static String getStackTrace(final Throwable throwable) {
 //        final StringWriter sw = new StringWriter();
 //        final PrintWriter pw = new PrintWriter(sw, true);

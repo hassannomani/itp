@@ -26,6 +26,9 @@ public class ReturnSubmission {
     @Column(name = "taxpayer",nullable = false)
     public String taxpayer;
 
+    @Column(name = "mobile",nullable = false)
+    public String mobile;
+
     @Column(name = "assessment_year",nullable = false)
     public String assessmentYear;
 

@@ -18,7 +18,7 @@ public interface CertificateRepository extends JpaRepository<Certificate, String
 
     Boolean existsByTinAndNid(String tin,String nid);
 
-    List<Certificate> findAll();
+    List<Certificate> findAllByOrderByCategory();
 
 
     Certificate findByTinAndNid(String tin,String nid);

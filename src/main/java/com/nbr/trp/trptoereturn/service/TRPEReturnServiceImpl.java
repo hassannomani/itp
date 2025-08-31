@@ -214,4 +214,55 @@ public class TRPEReturnServiceImpl implements TRPEReturnService {
 
     }
 
+    @Override
+    public TRPEReturnOTPValidatedResponse getEReturnResponseForAlreadyValidated(TRPEReturnOTPRequestModel request) {
+
+        HttpEntity headers = createHttpHeaders();
+        String url = baseURL + ereturnURL;
+        System.out.println(headers.getHeaders());
+        System.out.println(request);
+
+        //System.out.println("url : " + url);
+        HttpEntity<?> httpEntity = new HttpEntity<>(request, headers.getHeaders());
+        ResponseEntity<TRPEReturnOTPValidatedResponse> eReturnResponse;
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); // don't log nulls as empty
+            String requestJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(request);
+
+            System.out.println("=== Sending Request to API ===");
+            System.out.println("URL: " + baseURL + ereturnURL);
+            System.out.println("Headers: " + headers);
+            System.out.println("Payload:\n" + requestJson);
+            System.out.println("==============================");
+
+        } catch (JsonProcessingException e) {
+            System.err.println("Error serializing request object: " + e.getMessage());
+        }
+
+        try {
+            eReturnResponse = restTemplate.exchange(
+                    url,
+                    HttpMethod.POST,
+                    httpEntity,
+                    TRPEReturnOTPValidatedResponse.class
+            );
+
+            //eReturnResponse = restTemplate.exchange(url, HttpMethod.GET, httpHeadersEntity, String.class).getBody();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+        TRPEReturnOTPValidatedResponse finalResponseToReturn;
+        finalResponseToReturn = eReturnResponse.getBody();
+        //eReturnResponse = new Gson().fromJson(tinResponse, ETinResponseModel.class);
+        if (finalResponseToReturn == null) {
+            return null;
+        }
+        //System.out.println(eReturnResponse.toString());
+        return finalResponseToReturn;
+    }
+
+
 }
