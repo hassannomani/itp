@@ -136,7 +136,6 @@ public class CommonController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/file")
     public ResponseEntity<FileResponse> filepost(HttpServletRequest request, @RequestPart("file") MultipartFile file) throws FileSizeLimitExceededException {
-        System.out.println("Exception happening 0");
 
         String ip = commonService.getIPAddress(request);
         long size = file.getSize();

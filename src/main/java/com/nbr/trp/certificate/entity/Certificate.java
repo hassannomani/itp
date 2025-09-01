@@ -35,7 +35,7 @@ public class Certificate {
     @Column(name = "category",nullable = false)
     public String category;
 
-    @Column(name = "registration_no",nullable = false)
+    @Column(name = "registration_no")
     public String registrationNo;
 
     @Column(name = "registration_date")
