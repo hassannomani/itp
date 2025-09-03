@@ -253,38 +253,6 @@ public class LedgerController {
 
     }
 
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @GetMapping("/graph/agent/{tin}")
-//    public ResponseEntity<?> getGraphTrp(HttpServletRequest request, @PathVariable String tin){
-//        String ip = commonService.getIPAddress(request);
-//        UserDetailsImpl userDetails = commonService.getDetails();
-//        try{
-//            List<Object[]> ob = ledgerService.getGraphDataForAgent(tin);
-//            loggerController.ListGeneration(userDetails.getUsername(),"All Ledgers of agent: "+tin+" for graph", "",ip);
-//
-//            return ResponseEntity.ok(ob);
-//        } catch(Exception e){
-//            loggerController.ErrorHandler(e);
-//            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-//        }
-//    }
-
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @GetMapping("/agenttrp/{agent}/{trp}")
-//    public ResponseEntity<?> getGraphTrp(HttpServletRequest request, @PathVariable String agent, @PathVariable String trp){
-//        String ip = commonService.getIPAddress(request);
-//        UserDetailsImpl userDetails = commonService.getDetails();
-//        try{
-//            List<Ledger> ob = ledgerService.getTRPCommissionOfAnAgent(agent,trp);
-//            loggerController.ListGeneration(userDetails.getUsername(),"All Ledgers of TRP: "+trp+" of Agent: "+agent, "",ip);
-//            return ResponseEntity.ok(ob);
-//        } catch(Exception e){
-//            loggerController.ErrorHandler(e);
-//            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-//        }
-//    }
-
-
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/taxpayeritp/{itp}/{tin}")
     public ResponseEntity<?> getTaxpayerofAnItp(HttpServletRequest request, @PathVariable String itp,@PathVariable String tin){
@@ -355,6 +323,21 @@ public class LedgerController {
         UserDetailsImpl userDetails = commonService.getDetails();
         try{
             List<Object[]> ob = ledgerService.getDashBoardDataTotalCurrentMonth();
+            loggerController.ListGeneration(userDetails.getUsername(),"All Data for Dashboard for Current Month", "Admin",ip);
+
+            return ResponseEntity.ok(ob);
+        } catch(Exception e){
+            loggerController.ErrorHandler(e);
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
+        }
+    }
+
+    @GetMapping("dashboard/itpdata/{tin}")
+    public ResponseEntity<?> getDashBoardForITP(HttpServletRequest request,@PathVariable String tin){
+        String ip = commonService.getIPAddress(request);
+        UserDetailsImpl userDetails = commonService.getDetails();
+        try{
+            List<Object[]> ob = ledgerService.getDataForITPDashboard(tin);
             loggerController.ListGeneration(userDetails.getUsername(),"All Data for Dashboard for Current Month", "Admin",ip);
 
             return ResponseEntity.ok(ob);

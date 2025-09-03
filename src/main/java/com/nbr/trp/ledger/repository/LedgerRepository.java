@@ -94,6 +94,12 @@ public interface LedgerRepository extends JpaRepository<Ledger, String>{
     List<Object[]> dashBoardDataCurrentMonth();
 
 
+    @Query(value = "select count(lid) as total from ledger where itp_tin = :tin \n" +
+            "union \n" +
+            "select count(lid) as total from ledger where itp_tin = :tin and assessment_year='2025-2026'",nativeQuery = true)
+    List<Object[]> dashBoardDataForITP(@Param("tin") String tin);
+
+
 }
 
 

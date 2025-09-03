@@ -41,6 +41,9 @@ public interface LedgerService {
     public List<Object[]> getDashBoardDataTotal();
     public List<Object[]> getDashBoardDataTotalCurrentMonth();
 
+    public List<Object[]> getDataForITPDashboard(String tin);
+
+
 
 
 }

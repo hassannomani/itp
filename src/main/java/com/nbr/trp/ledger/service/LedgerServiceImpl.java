@@ -152,6 +152,10 @@ public class LedgerServiceImpl implements  LedgerService
         return ledgerRepository.dashBoardDataCurrentMonth();
     }
 
+    @Override
+    public List<Object[]> getDataForITPDashboard(String tin){
+        return ledgerRepository.dashBoardDataForITP(tin);
+    }
 
 
 
