@@ -27,7 +27,7 @@ import java.util.Map;
 public class FileUploadServiceImpl implements FileUploadService{
 
     @Override
-    public FileResponse uploadFile(Path p, MultipartFile file, int flag) {
+    public FileResponse uploadFile(Path p, MultipartFile file, int flag, Long val) {
 
         try {
 
@@ -45,8 +45,8 @@ public class FileUploadServiceImpl implements FileUploadService{
 
             }
 
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            Long val = timestamp.getTime();
+//            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//            Long val = timestamp.getTime();
             String pathFinal = "";
             if(flag==1)
                 pathFinal = path + File.separator + val + ".pdf";

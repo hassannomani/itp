@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 4800)
@@ -146,8 +147,12 @@ public class CommonController {
         }
         try {
             File f = new ClassPathResource("").getFile();
-            final Path path = Paths.get(f.getAbsolutePath() + File.separator + "static" + File.separator + "files");
-            FileResponse fileResponse = fileUploadService.uploadFile(path, file, 1);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Long val = timestamp.getTime();
+            final Path path = Path.of(System.getProperty("user.dir") + "/Uploads/file" + File.separator + val);
+
+            //String filePath = System.getProperty("user.dir") + "/Uploads" + File.separator + file.getOriginalFilename();
+            FileResponse fileResponse = fileUploadService.uploadFile(path, file, 1,val);
             loggerController.IncomingRequest(ip,"File Upload");
             return new ResponseEntity<>(fileResponse, HttpStatus.OK);
 
@@ -167,7 +172,8 @@ public class CommonController {
     public ResponseEntity<Resource> load(HttpServletRequest request, @PathVariable String filename) {
         String ip = commonService.getIPAddress(request);
         try {
-            Path root = Paths.get("target/classes/static/files");
+            String [] name = filename.split("\\.");
+            Path root = Paths.get("Uploads/file/"+name[0]+File.separator);
             Resource resource = fileUploadService.retrieve(root, filename,1);
             loggerController.IncomingRequest(ip,"File Retrieval");
 
@@ -193,9 +199,11 @@ public class CommonController {
     public ResponseEntity<FileResponse> photopost(HttpServletRequest request,@RequestPart("file") MultipartFile file) {
         String ip = commonService.getIPAddress(request);
         try {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Long val = timestamp.getTime();
             File f = new ClassPathResource("").getFile();
-            final Path path = Paths.get(f.getAbsolutePath() + File.separator + "static" + File.separator + "photo");
-            FileResponse fileResponse = fileUploadService.uploadFile(path, file, 0);
+            final Path path = Path.of(System.getProperty("user.dir") + "/Uploads/photo" + File.separator + val);
+            FileResponse fileResponse = fileUploadService.uploadFile(path, file, 0,val);
             loggerController.IncomingRequest(ip,"Photo Upload");
             return new ResponseEntity<>(fileResponse, HttpStatus.OK);
 
@@ -239,8 +247,10 @@ public class CommonController {
 
         try {
             File f = new ClassPathResource("").getFile();
-            final Path path = Paths.get(f.getAbsolutePath() + File.separator + "static" + File.separator + "profilephoto");
-            FileResponse fileResponse = fileUploadService.uploadFile(path, file, 0);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Long val = timestamp.getTime();
+            final Path path = Path.of(System.getProperty("user.dir") + "/Uploads/photo" + File.separator + val);
+            FileResponse fileResponse = fileUploadService.uploadFile(path, file, 0,val);
             loggerController.IncomingRequest(ip,"Photo Upload");
             User u = userService.getUserByUsername(userDetails.getUsername()).orElse(null);
             if(u!=null){
