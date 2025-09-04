@@ -4,8 +4,8 @@ public interface CertificateEasyView {
 
         String getName();
 
-        String getTin();
-        String getNid();
+//        String getTin();
+//        String getNid();
 
         String getMobile();
 

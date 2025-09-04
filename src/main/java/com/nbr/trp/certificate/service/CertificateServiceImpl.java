@@ -1,6 +1,7 @@
 package com.nbr.trp.certificate.service;
 
 import com.nbr.trp.certificate.entity.Certificate;
+import com.nbr.trp.certificate.entity.CertificateEasyView;
 import com.nbr.trp.certificate.repository.CertificateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,11 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public List<Certificate> getAllCertificates() {
         return certificateRepository.findAllByOrderByCategory();
+    }
+
+    @Override
+    public List<CertificateEasyView> getAllCertificatesForPublicView() {
+        return certificateRepository.getAllCertificateForPublic();
     }
 
     @Override

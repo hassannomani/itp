@@ -1,6 +1,7 @@
 package com.nbr.trp.certificate.repository;
 
 import com.nbr.trp.certificate.entity.Certificate;
+import com.nbr.trp.certificate.entity.CertificateEasyView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -18,8 +19,11 @@ public interface CertificateRepository extends JpaRepository<Certificate, String
 
     Boolean existsByTinAndNid(String tin,String nid);
 
-    List<Certificate> findAllByOrderByCategory();
+    @Query(value = "select name, mobile, category from certificates order by category",nativeQuery = true)
+    List<CertificateEasyView> getAllCertificateForPublic();
 
+
+    List<Certificate> findAllByOrderByCategory();
 
     Certificate findByTinAndNid(String tin,String nid);
 

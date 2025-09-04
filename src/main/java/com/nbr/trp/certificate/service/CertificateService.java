@@ -1,6 +1,7 @@
 package com.nbr.trp.certificate.service;
 
 import com.nbr.trp.certificate.entity.Certificate;
+import com.nbr.trp.certificate.entity.CertificateEasyView;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface CertificateService {
     public void saveCertificateBulk(List<Certificate> certificates);
 
     public List<Certificate> getAllCertificates();
+
+    public List<CertificateEasyView> getAllCertificatesForPublicView();
 
     public Boolean getCertificateByTinNNid(String tin, String nid);
 

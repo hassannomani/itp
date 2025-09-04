@@ -1,6 +1,7 @@
 package com.nbr.trp.certificate.controller;
 
 import com.nbr.trp.certificate.entity.Certificate;
+import com.nbr.trp.certificate.entity.CertificateEasyView;
 import com.nbr.trp.certificate.service.CertificateService;
 import com.nbr.trp.common.service.CommonService;
 import com.nbr.trp.ledger.entity.Ledger;
@@ -110,7 +111,7 @@ public class CertificateController {
     public ResponseEntity<?> getAllCertPublic(HttpServletRequest request){
         String ip = commonService.getIPAddress(request);
         try{
-            List<Certificate> certs = certificateService.getAllCertificates();
+            List<CertificateEasyView> certs = certificateService.getAllCertificatesForPublicView();
             loggerController.ListGeneration("","All Certificates Public","Admin",ip);
             return ResponseEntity.ok(certs);
 
