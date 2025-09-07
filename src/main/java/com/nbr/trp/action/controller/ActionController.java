@@ -34,7 +34,7 @@ public class ActionController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/save")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','NBR')")
     public ResponseEntity<?> saveAction(HttpServletRequest request, @RequestBody Action act) {
         String ip = commonService.getIPAddress(request);
 

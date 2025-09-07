@@ -12,6 +12,7 @@ import com.nbr.trp.trptoereturn.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
@@ -43,8 +44,11 @@ public class TRPEReturnServiceImpl implements TRPEReturnService {
     @Autowired
     private Gson gson;
 
+//    @Autowired
+//    private RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplateWithoutSSL;
 
     @Override
     public TRPEReturnAuthResponseModel getAuthResponse() {
@@ -55,8 +59,10 @@ public class TRPEReturnServiceImpl implements TRPEReturnService {
         //System.out.println("url : {}"+ url);
         //System.out.println(request);
         HttpEntity<?> httpEntity = new HttpEntity<>(request, headers);
-
-        ResponseEntity<TRPEReturnAuthResponseModel> model = restTemplate.exchange(url, HttpMethod.POST, httpEntity, TRPEReturnAuthResponseModel.class);
+//        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+//        requestFactory.setTrustAll(true);
+//        RestTemplate restTemplate = new RestTemplate(requestFactory);
+        ResponseEntity<TRPEReturnAuthResponseModel> model = restTemplateWithoutSSL.exchange(url, HttpMethod.POST, httpEntity, TRPEReturnAuthResponseModel.class);
         if (model != null) {
             TRPEReturnAuthResponseModel auth = model.getBody();
             System.out.println(auth.getReplyMessage().toString());
@@ -112,7 +118,7 @@ public class TRPEReturnServiceImpl implements TRPEReturnService {
         }
 
         try {
-            eReturnResponse = restTemplate.exchange(
+            eReturnResponse = restTemplateWithoutSSL.exchange(
                     url,
                     HttpMethod.POST,
                     httpEntity,
@@ -144,7 +150,7 @@ public class TRPEReturnServiceImpl implements TRPEReturnService {
         ResponseEntity<TRPEReturnOTPValidatedResponse> eReturnResponse;
 
         try {
-            eReturnResponse = restTemplate.exchange(url, HttpMethod.POST, httpEntity, TRPEReturnOTPValidatedResponse.class);
+            eReturnResponse = restTemplateWithoutSSL.exchange(url, HttpMethod.POST, httpEntity, TRPEReturnOTPValidatedResponse.class);
 
             //eReturnResponse = restTemplate.exchange(url, HttpMethod.GET, httpHeadersEntity, String.class).getBody();
         } catch (Exception ex) {
@@ -177,8 +183,8 @@ public class TRPEReturnServiceImpl implements TRPEReturnService {
         int code = 0;
         String bodyAPI;
         try {
-            bodyAPI = restTemplate.exchange(url,HttpMethod.POST, httpEntity, String.class).getBody();
-            code = restTemplate.exchange(url,HttpMethod.POST, httpEntity, String.class).getStatusCode().value();
+            bodyAPI = restTemplateWithoutSSL.exchange(url,HttpMethod.POST, httpEntity, String.class).getBody();
+            code = restTemplateWithoutSSL.exchange(url,HttpMethod.POST, httpEntity, String.class).getStatusCode().value();
             //tinResponse = restTemplate.exchange(url, HttpMethod.GET, httpHeadersEntity, String.class).getBody();
         } catch (Exception ex) {
             System.out.println("Code isy "+code);
@@ -242,7 +248,7 @@ public class TRPEReturnServiceImpl implements TRPEReturnService {
         }
 
         try {
-            eReturnResponse = restTemplate.exchange(
+            eReturnResponse = restTemplateWithoutSSL.exchange(
                     url,
                     HttpMethod.POST,
                     httpEntity,

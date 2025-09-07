@@ -142,11 +142,11 @@ public class CommonController {
         long size = file.getSize();
         if(size>max_file_size){
             System.out.println("Exception happening");
-            throw new FileSizeLimitExceededException("Exceeded",max_file_size,size);
+            //throw new FileSizeLimitExceededException("Exceeded",max_file_size,size);
+            return new ResponseEntity<>(null,HttpStatus.PAYLOAD_TOO_LARGE);
 
         }
         try {
-            File f = new ClassPathResource("").getFile();
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Long val = timestamp.getTime();
             final Path path = Path.of(System.getProperty("user.dir") + "/Uploads/file" + File.separator + val);
@@ -157,17 +157,17 @@ public class CommonController {
             return new ResponseEntity<>(fileResponse, HttpStatus.OK);
 
         }
-        catch (FileSizeLimitExceededException e){
-            System.out.println("FException----------------------");
-            return new ResponseEntity<>(null,HttpStatus.PAYLOAD_TOO_LARGE);
-        }
+//        catch (FileSizeLimitExceededException e){
+//            System.out.println("FException----------------------");
+//            return new ResponseEntity<>(null,HttpStatus.PAYLOAD_TOO_LARGE);
+//        }
         catch (Exception e){
-            System.out.println("Exception----------------------");
+            System.out.println(e);
             return new ResponseEntity<>(null,HttpStatus.PAYLOAD_TOO_LARGE);
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = {"http://localhost:4200","http://trms.nbr.gov.bd","https://trms.nbr.gov.bd"})
     @GetMapping("/file/{filename}")
     public ResponseEntity<Resource> load(HttpServletRequest request, @PathVariable String filename) {
         String ip = commonService.getIPAddress(request);
@@ -201,13 +201,12 @@ public class CommonController {
         try {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Long val = timestamp.getTime();
-            File f = new ClassPathResource("").getFile();
             final Path path = Path.of(System.getProperty("user.dir") + "/Uploads/photo" + File.separator + val);
             FileResponse fileResponse = fileUploadService.uploadFile(path, file, 0,val);
             loggerController.IncomingRequest(ip,"Photo Upload");
             return new ResponseEntity<>(fileResponse, HttpStatus.OK);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             loggerController.ErrorHandler(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -246,7 +245,6 @@ public class CommonController {
         UserDetailsImpl userDetails = commonService.getDetails();
 
         try {
-            File f = new ClassPathResource("").getFile();
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Long val = timestamp.getTime();
             final Path path = Path.of(System.getProperty("user.dir") + "/Uploads/photo" + File.separator + val);
@@ -262,7 +260,7 @@ public class CommonController {
                 return new ResponseEntity<>(fileResponse, HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             loggerController.ErrorHandler(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -279,12 +277,15 @@ public class CommonController {
             System.out.println(photo);
             File theFile = new File(photo);
             String fname = theFile.getName();
+            System.out.println("Line 282:"+fname);
+            String [] parts = fname.split("\\.");
+            System.out.println("Uploads/photo/"+parts[0]+File.separator);
+            Path root = Paths.get("Uploads/photo/"+parts[0]+File.separator);
 
-            //String [] parts = photo.split("/");
-            //System.out.println("Length is "+parts.length);
-            Path root = Paths.get("target/classes/static/profilephoto/");
             //System.out.println(root);
             if(!fname.isEmpty()){
+                //System.out.println("Line 290:"+root);
+                //System.out.println(fname);
                 Resource resource = fileUploadService.retrieve(root, fname,0);
                 loggerController.IncomingRequest(ip,"Photo Retrieval");
 

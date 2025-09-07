@@ -73,9 +73,12 @@ public class FileUploadServiceImpl implements FileUploadService{
 
     @Override
     public Resource retrieve(Path p, String filename, int flag) {
+        System.out.println(p);
+        System.out.println(filename);
         try{
             Path root = p;
             Path file = root.resolve(filename);
+
             System.out.println(file);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {

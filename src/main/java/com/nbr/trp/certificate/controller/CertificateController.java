@@ -93,6 +93,7 @@ public class CertificateController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','NBR')")
     @GetMapping("/all")
     public ResponseEntity<?> getAllCert(HttpServletRequest request){
         String ip = commonService.getIPAddress(request);
