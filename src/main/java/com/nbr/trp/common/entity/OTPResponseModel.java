@@ -16,10 +16,18 @@ public class OTPResponseModel {
 //    private String time;
 //    private String cell_no;
 
+//    private String  status;
+//    private String message;
+//    private String smsid;
+//    private String SmsCount;
+//    private String errmsg;
+
+
     private String  status;
-    private String message;
-    private String smsid;
-    private String SmsCount;
+    private String status_code;
+    private String error_message;
     private String errmsg;
+    private smsinfo sms;
+
 
 }

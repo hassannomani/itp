@@ -253,7 +253,7 @@ public class CommonController {
             User u = userService.getUserByUsername(userDetails.getUsername()).orElse(null);
             if(u!=null){
                 u.setPhoto(fileResponse.getFileUri());
-                userService.saveUser(u);
+                userService.saveSimple(u);
                 return new ResponseEntity<>(fileResponse, HttpStatus.OK);
 
             }else{

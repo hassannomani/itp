@@ -165,5 +165,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.getByTin(username);
     }
 
+    @Override
+    public User saveSimple(User user){
+        return userRepository.save(user);
+
+    }
 
 }

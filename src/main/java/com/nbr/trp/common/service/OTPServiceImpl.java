@@ -34,6 +34,12 @@ public class OTPServiceImpl implements OTPService{
     @Value("${otp.otpsend-url}")
     private String sendURL;
 
+    @Value("${otp.sid}")
+    private String sid;
+
+    @Value("${otp.csms_id}")
+    private String csms;
+
     @Autowired
     private Gson gson;
 
@@ -59,13 +65,13 @@ public class OTPServiceImpl implements OTPService{
 
     @Override
     public OTPResponseModel sendOTP(String mobile) {
-        System.out.println("here i come-------------");
+        //System.out.println("here i come-------------");
         OTPResponseModel otpResponseModelret;
         String otp = generateOTP(mobile);
 //        String url = baseURL + sendURL+"txtMessage="+otp+"&msisdn="+mobile+
 //                "&usrname="+userName+"&password="+password;
-        String url = baseURL + sendURL+"?api_token="+password+"&senderid="+userName+
-                "&message=Your+otp+is:+"+otp+"&contact_number="+mobile;
+        String url = baseURL + sendURL+"api_token="+password+"&sid="+sid+
+                "&sms=(TRMS of NBR) OTP+is:"+otp+"&msisdn="+mobile+"&csms_id="+csms;
         System.out.println("url : " + url);
 
         HttpHeaders headers = new HttpHeaders();

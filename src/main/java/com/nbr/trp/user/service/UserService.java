@@ -42,6 +42,9 @@ public interface UserService {
 
     public User checkUsernameByTin(String username);
 
+    public User saveSimple(User user);
+
+
 
 
 //    public User rejectRepUserByTin(String tin);

@@ -194,7 +194,7 @@ public class AuthController {
         User employee = new User(
                 UUID.randomUUID().toString(),
                 signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getPassword(),
                 signUpRequest.getFirstname(),
                 signUpRequest.getLastname(),
                 signUpRequest.getEmail(),
