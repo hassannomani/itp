@@ -67,6 +67,7 @@ public interface LedgerRepository extends JpaRepository<Ledger, String>{
     @Query(value = "select * from ledger where created_at >= :startDate AND created_at <=:endDate AND agent_tin=:agTin AND representative_tin=:trpTin",nativeQuery = true)
     List<Ledger> getTRPCommissionWithinRange(@Param("agTin") String agTin, @Param("trpTin") String trpTin, @Param("startDate") Timestamp startDate, @Param("endDate")Timestamp endDate);
 
+    @Query(value = "select top 1 * from ledger where itp_tin = :itp AND taxpayer_id = :taxpayer",nativeQuery = true)
     Ledger findByItpTinAndTaxpayerId(String itp, String taxpayer);
 
     @Query(value = "select * from ledger where bill_submitted_ag=0 and agent_tin = :agTin",nativeQuery = true)

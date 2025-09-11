@@ -2,6 +2,7 @@ package com.nbr.trp.user.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nbr.trp.user.entity.User;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,6 +27,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
+    private String name;
+
     @JsonIgnore
     private String password;
 
@@ -38,6 +41,7 @@ public class UserDetailsImpl implements UserDetails {
             String uuid,
             String username,
             String email,
+            String name,
             String password,
             String status,
             Collection<? extends GrantedAuthority> authorities
@@ -45,6 +49,7 @@ public class UserDetailsImpl implements UserDetails {
         this.uuid = uuid;
         this.username = username;
         this.email = email;
+        this.name = name;
         this.password = password;
         this.status = status;
         this.authorities = authorities;
@@ -61,6 +66,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUuid(),
                 user.getUsername(),
                 user.getEmail(),
+                user.getFirstName()+" "+user.getLastName(),
                 user.getPassword(),
                 user.getStatus(),
                 authorities);
@@ -94,6 +100,11 @@ public class UserDetailsImpl implements UserDetails {
     public String getStatus() {
         return status;
     }
+
+    public String getName() {
+        return name;
+    }
+
 
     @Override
     public boolean isAccountNonExpired() {

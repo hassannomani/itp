@@ -101,7 +101,8 @@ public class AuthController {
                             userDetails.getUuid(),
                             userDetails.getUsername(),
                             userDetails.getEmail(),
-                            roles
+                            roles,
+                            userDetails.getName()
                     )
             );
         }
@@ -144,7 +145,7 @@ public class AuthController {
                         .collect(Collectors.toList());
 
                 return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUuid(), userDetails.getUsername(),
-                        userDetails.getEmail(), roles)
+                        userDetails.getEmail(), roles, userDetails.getName())
                 );
             }
             else{
@@ -157,7 +158,7 @@ public class AuthController {
                         .collect(Collectors.toList());
 
                 return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUuid(), userDetails.getUsername(),
-                        userDetails.getEmail(), roles)
+                        userDetails.getEmail(), roles, userDetails.getName())
                 );
             }
         }else{
